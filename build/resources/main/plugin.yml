@@ -1,0 +1,17 @@
+name: DragonEgg
+version: 1.0.0
+main: com.abohasiba.dragonegg.DragonEgg
+api-version: '1.21'
+description: Legendary Dragon Egg artifact plugin for Paper 1.21.11
+author: abohasiba
+
+commands:
+  dragonegg:
+    description: DragonEgg management command
+    permission: dragonegg.admin
+    usage: /<command> reload
+
+permissions:
+  dragonegg.admin:
+    description: Allows reloading the DragonEgg configuration and managing the plugin
+    default: op

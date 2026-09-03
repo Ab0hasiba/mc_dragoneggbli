@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.abohasiba'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+
+    testImplementation('io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT') {
+        transitive = false
+    }
+    testImplementation 'com.google.guava:guava:33.3.1-jre'
+    testImplementation 'org.slf4j:slf4j-api:2.0.16'
+    testImplementation 'net.kyori:adventure-api:4.26.1'
+    testImplementation 'net.kyori:adventure-key:4.26.1'
+    testImplementation 'net.kyori:adventure-text-minimessage:4.26.1'
+    testImplementation 'net.kyori:adventure-text-logger-slf4j:4.26.1'
+    testImplementation 'net.md-5:bungeecord-chat:1.21-R0.2-deprecated+build.21'
+    testImplementation 'org.yaml:snakeyaml:2.2'
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
+}
+
+configurations.all {
+    exclude group: 'it.unimi.dsi', module: 'fastutil'
+    exclude group: 'org.apache.maven'
+    exclude group: 'org.apache.maven.resolver'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveFileName.set("DragonEgg-${project.version}.jar")
+}
