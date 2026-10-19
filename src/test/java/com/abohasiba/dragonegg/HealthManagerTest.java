@@ -29,6 +29,7 @@ class HealthManagerTest {
     /**
      * Simulated AttributeInstance tracking modifiers accurately in memory.
      */
+    @SuppressWarnings({"deprecation", "removal"})
     static class FakeAttributeInstance implements AttributeInstance {
         double baseValue = 20.0; // Standard vanilla player health (10 hearts)
         final Map<net.kyori.adventure.key.Key, AttributeModifier> modifiers = new HashMap<>();

@@ -1,8 +1,8 @@
 name: DragonEgg
 version: 1.0.0
 main: com.abohasiba.dragonegg.DragonEgg
-api-version: '1.21'
-description: Legendary Dragon Egg artifact plugin for Paper 1.21.11
+api-version: '26.1'
+description: Legendary Dragon Egg artifact plugin for Paper 26.1, 26.2, and 26.3
 author: abohasiba
 
 commands:

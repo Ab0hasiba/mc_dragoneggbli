@@ -2,13 +2,13 @@
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Ab0hasiba/mc_dragoneggbli/main/src/main/resources/plugin.yml" alt="" width="0" height="0">
-  <b>A legendary, high-performance Dragon Egg artifact plugin for Paper 1.21.x</b><br>
+  <b>A legendary, high-performance Dragon Egg artifact plugin for Paper 26.1, 26.2, and 26.3</b><br>
   Transforms the vanilla Dragon Egg into a contested, game-changing artifact granting god-tier attributes and buffs while strictly preventing hoarding or safe container storage.
 </p>
 
 <p align="center">
-  <a href="https://papermc.io/"><img src="https://img.shields.io/badge/Paper-1.21.11-brightgreen.svg?style=for-the-badge&logo=minecraft" alt="Paper"></a>
-  <a href="https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html"><img src="https://img.shields.io/badge/Java-21-orange.svg?style=for-the-badge&logo=openjdk" alt="Java"></a>
+  <a href="https://papermc.io/"><img src="https://img.shields.io/badge/Paper-26.1%20%7C%2026.2%20%7C%2026.3-brightgreen.svg?style=for-the-badge&logo=minecraft" alt="Paper"></a>
+  <a href="https://adoptium.net/"><img src="https://img.shields.io/badge/Java-25-orange.svg?style=for-the-badge&logo=openjdk" alt="Java"></a>
   <a href="https://gradle.org/"><img src="https://img.shields.io/badge/Built%20with-Gradle-02303A.svg?style=for-the-badge&logo=gradle" alt="Gradle"></a>
   <a href="https://github.com/Ab0hasiba/mc_dragoneggbli/releases"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=for-the-badge" alt="Release"></a>
 </p>
@@ -40,7 +40,7 @@ Carrying the Dragon Egg in your inventory immediately awakens ancient draconic p
 The Dragon Egg is designed to be an **active, world-contested artifact**—not locked away in a safe or hidden base:
 - ❌ **Container Storage Blocked:** Prevents storing the egg in Chests, Double Chests, Trapped Chests, Barrels, Shulker Boxes, Hoppers, Droppers, Dispensers, Ender Chests, Crafters, etc.
 - ❌ **Anti-Inventory Tricks:** Blocks shift-click insertion, number-key hotbar swapping, off-hand swapping, and double-click collector actions into external inventories.
-- ❌ **Item Bundles & Storage Blocks:** Prevents inserting the egg into vanilla 1.21 Bundles, Decorated Pots, Chiseled Bookshelves, or Jukeboxes.
+- ❌ **Item Bundles & Storage Blocks:** Prevents inserting the egg into vanilla Bundles, Decorated Pots, Chiseled Bookshelves, or Jukeboxes.
 - ❌ **Entity Storage Protected:** Cannot be placed inside Armor Stands, Item Frames, Glow Item Frames, Storage Minecarts, Hopper Minecarts, or Chested Animals (Horses, Donkeys, Mules, Llamas).
 - ❌ **Automated Redstone Blocked:** Hoppers, droppers, and hopper minecarts cannot move or suck up dropped Dragon Eggs from the ground.
 - ❌ **Block Placement Prevention:** Prevents placing the egg on the ground as a block (`prevent-block-placement: true`), guaranteeing it remains strictly an inventory artifact or dropped item entity.
@@ -53,7 +53,7 @@ The plugin is fully customizable with instant reload support:
 
 ```yaml
 # ========================================================
-# 🐉 DragonEgg Configuration — Paper 1.21.11
+# 🐉 DragonEgg Configuration — Paper 26.1, 26.2, 26.3
 # ========================================================
 
 dragon-egg:
@@ -130,7 +130,7 @@ messages:
 
 1. Download the latest `DragonEgg-1.0.0.jar` from [Releases](https://github.com/Ab0hasiba/mc_dragoneggbli/releases).
 2. Place the jar into your server's `plugins/` directory.
-3. Start or restart your server (running **Paper 1.21+** on **Java 21+**).
+3. Start or restart your server (running **Paper 26.1, 26.2, or 26.3** on **Java 25+**).
 4. Edit `plugins/DragonEgg/config.yml` to your liking and execute `/dragonegg reload`.
 
 ---
@@ -140,7 +140,7 @@ messages:
 To compile and build the plugin from source code:
 
 ### Prerequisites
-- JDK 21 or higher installed
+- JDK 25 or higher installed
 - Git
 
 ### Build Steps
@@ -149,15 +149,29 @@ To compile and build the plugin from source code:
 git clone https://github.com/Ab0hasiba/mc_dragoneggbli.git
 cd mc_dragoneggbli
 
-# Build with Gradle wrapper
+# Build default plugin jar
 ./gradlew build
+
+# Or build separate jars for all Paper 26 versions at once:
+./gradlew buildAll
 ```
 
-The compiled plugin jar will be generated in `build/libs/DragonEgg-1.0.0.jar`.
+The compiled jars are located in `build/libs/`:
+- `build/libs/DragonEgg-1.0.0.jar`
+- `build/libs/DragonEgg-1.0.0-Paper-26.1.jar`
+- `build/libs/DragonEgg-1.0.0-Paper-26.2.jar`
+- `build/libs/DragonEgg-1.0.0-Paper-26.3.jar`
 
-To run the automated unit tests:
+To run the automated unit tests across Paper 26 versions:
 ```bash
+# Test default (Paper 26.1)
 ./gradlew test
+
+# Test against Paper 26.2
+./gradlew test -PpaperVersion=26.2.build.134-stable
+
+# Test against Paper 26.3
+./gradlew test -PpaperVersion=26.3.build.206-stable
 ```
 
 ---

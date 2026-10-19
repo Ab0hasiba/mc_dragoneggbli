@@ -7,7 +7,7 @@ version = '1.0.0'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -19,20 +19,12 @@ repositories {
     }
 }
 
-dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+def paperVersion = project.findProperty('paperVersion') ?: '26.1.2.build.74-stable'
 
-    testImplementation('io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT') {
-        transitive = false
-    }
-    testImplementation 'com.google.guava:guava:33.3.1-jre'
-    testImplementation 'org.slf4j:slf4j-api:2.0.16'
-    testImplementation 'net.kyori:adventure-api:4.26.1'
-    testImplementation 'net.kyori:adventure-key:4.26.1'
-    testImplementation 'net.kyori:adventure-text-minimessage:4.26.1'
-    testImplementation 'net.kyori:adventure-text-logger-slf4j:4.26.1'
-    testImplementation 'net.md-5:bungeecord-chat:1.21-R0.2-deprecated+build.21'
-    testImplementation 'org.yaml:snakeyaml:2.2'
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:${paperVersion}"
+
+    testImplementation "io.papermc.paper:paper-api:${paperVersion}"
     testImplementation platform('org.junit:junit-bom:5.11.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core:5.14.2'
@@ -47,6 +39,7 @@ configurations.all {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:deprecation"
 }
 
 processResources {
@@ -60,8 +53,28 @@ processResources {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-Dnet.bytebuddy.experimental=true'
 }
 
 jar {
-    archiveFileName.set("DragonEgg-${project.version}.jar")
+    def classifier = project.findProperty('jarClassifier') ? "-${project.property('jarClassifier')}" : ""
+    archiveFileName.set("DragonEgg-${project.version}${classifier}.jar")
+}
+
+tasks.register('buildAll') {
+    group = 'build'
+    description = 'Compiles and generates separate jar files for Paper 26.1, 26.2, and 26.3'
+    dependsOn 'jar'
+    doLast {
+        def targetVersions = [
+            '26.1': '26.1.2.build.74-stable',
+            '26.2': '26.2.build.134-stable',
+            '26.3': '26.3.build.206-stable'
+        ]
+        targetVersions.each { verTag, paperVer ->
+            exec {
+                commandLine './gradlew', 'jar', "--rerun-tasks", "-PpaperVersion=${paperVer}", "-PjarClassifier=Paper-${verTag}"
+            }
+        }
+    }
 }

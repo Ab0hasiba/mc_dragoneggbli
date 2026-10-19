@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.UUID;
 
 /**
- * Main plugin class for DragonEgg (Paper 1.21.11).
+ * Main plugin class for DragonEgg (Paper 26.1, 26.2, 26.3).
  */
 public class DragonEgg extends JavaPlugin {
 
@@ -52,7 +52,7 @@ public class DragonEgg extends JavaPlugin {
         // Start scheduled check task
         startScheduledTask();
 
-        getLogger().info("DragonEgg 1.0.0 enabled successfully for Paper 1.21.11!");
+        getLogger().info("DragonEgg 1.0.0 enabled successfully for Paper 26.1, 26.2, and 26.3!");
     }
 
     @Override

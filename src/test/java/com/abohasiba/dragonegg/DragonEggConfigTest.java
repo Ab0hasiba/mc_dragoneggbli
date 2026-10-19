@@ -159,4 +159,15 @@ class DragonEggConfigTest {
 
         assertEquals(20L, config.getCheckIntervalTicks());
     }
+
+    @Test
+    @DisplayName("Verify plugin.yml parses cleanly with PluginDescriptionFile")
+    void testPluginYml() throws Exception {
+        try (var is = getClass().getResourceAsStream("/plugin.yml")) {
+            assertNotNull(is, "plugin.yml must be on the classpath");
+            org.bukkit.plugin.PluginDescriptionFile pdf = new org.bukkit.plugin.PluginDescriptionFile(is);
+            assertEquals("DragonEgg", pdf.getName());
+            assertNotNull(pdf.getAPIVersion());
+        }
+    }
 }

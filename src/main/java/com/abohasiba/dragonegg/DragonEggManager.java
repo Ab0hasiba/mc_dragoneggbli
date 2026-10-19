@@ -68,12 +68,17 @@ public class DragonEggManager {
             if (meta.hasLore()) {
                 return false;
             }
-            if (meta.hasCustomModelData()) {
+            if (meta.hasCustomModelDataComponent() || hasLegacyCustomModelData(meta)) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static boolean hasLegacyCustomModelData(ItemMeta meta) {
+        return meta.hasCustomModelData();
     }
 
     /**
